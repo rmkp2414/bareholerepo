@@ -132,6 +132,6 @@ app.get('/graph',async (req, res) => {
     res.send({ graphData })
 })
 
-app.listen(process.env.PORT || 3001, function () {
+app.listen(process.env.PORT || 8080, function () {
     console.log("Express Server Listening On Port %d in %s mode", this.address().port, app.settings.env);
 });
