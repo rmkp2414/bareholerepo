@@ -74,7 +74,7 @@ $(document).ready(()=>{
     const _getData = async (u1, view) => {
         await $.ajax({
             url: u1, success: function (result) {
-                console.log(result)
+               // console.log(result)
                 var ctx = document.getElementById(view);
                 // if(myChart!=null){
                 //     myChart.destroy();
@@ -160,8 +160,9 @@ $(document).ready(()=>{
 padding:30px
 }
 
-.graphBtn:hover {
+.graphBtn {
 cursor: pointer;
+
 }
 
 </style>
@@ -173,26 +174,31 @@ cursor: pointer;
     <h3>File 1</h3>
     <div>
         <div class="graphBtn" onClick="_getData('/graph?q=QC&&file=1&&i=1',1)">Depth - QC</div>
-        <div class="graphBtn" onClick="_getData('/graph?q=FS&&file=1&&i=2',1)">Depth - FS</div>
-        <div class="graphBtn" onClick="_getData('/graph?q=U&&file=1&&i=3',1)">Depth - U</div>
-        <div class="graphBtn" onClick="_getData('/graph?q=TA&&file=1&&i=4',1)">Depth - TA</div>
-        <div class="graphBtn" onClick="_getData('/graph?q=O&&file=1&&i=5',1)">Depth - O</div>
-        <div class="graphBtn" onClick="_getData('/graph?q=B&&file=1&&i=6',1)">Depth - B</div>
+        
         <div class="col-md-6">
             <canvas id="1" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getData('/graph?q=FS&&file=1&&i=2',1)">Depth - FS</div>
+        
         <div class="col-md-6">
             <canvas id="2" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getData('/graph?q=U&&file=1&&i=3',1)">Depth - U</div>
+        
         <div class="col-md-6">
             <canvas id="3" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getData('/graph?q=TA&&file=1&&i=4',1)">Depth - TA</div>
+        
         <div class="col-md-6">
             <canvas id="4" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getData('/graph?q=O&&file=1&&i=5',1)">Depth - O</div>
+       
         <div class="col-md-6">
             <canvas id="5" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getData('/graph?q=B&&file=1&&i=6',1)">Depth - B</div>
         <div class="col-md-6">
             <canvas id="6" width="auto" height="auto"></canvas>
         </div>
@@ -203,26 +209,31 @@ cursor: pointer;
     <h3>File 2</h3>
     <div>
         <div class="graphBtn" onClick="_getData('/graph?q=A&&file=2&&i=1',2)">Depth - A</div>
-        <div class="graphBtn" onClick="_getData('/graph?q=W&&file=2&&i=2',2)">Depth - W</div>
-        <div class="graphBtn" onClick="_getData('/graph?q=AK&&file=2&&i=3',2)">Depth - AK</div>
-        <div class="graphBtn" onClick="_getData('/graph?q=AKZ&&file=2&&i=4',2)">Depth - AKZ</div>
-        <div class="graphBtn" onClick="_getData('/graph?q=B&&file=2&&i=5',2)">Depth - B</div>
-        <div class="graphBtn" onClick="_getData('/graph?q=C&&file=2&&i=6',2)">Depth - C</div>
+        
         <div class="col-md-6">
             <canvas id="7" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getData('/graph?q=W&&file=2&&i=2',2)">Depth - W</div>
+        
         <div class="col-md-6">
             <canvas id="8" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getData('/graph?q=AK&&file=2&&i=3',2)">Depth - AK</div>
+        
         <div class="col-md-6">
             <canvas id="9" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getData('/graph?q=AKZ&&file=2&&i=4',2)">Depth - AKZ</div>
+        
         <div class="col-md-6">
             <canvas id="10" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getData('/graph?q=B&&file=2&&i=5',2)">Depth - B</div>
+        
         <div class="col-md-6">
             <canvas id="11" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getData('/graph?q=C&&file=2&&i=6',2)">Depth - C</div>
         <div class="col-md-6">
             <canvas id="12" width="auto" height="auto"></canvas>
         </div>
@@ -233,30 +244,36 @@ cursor: pointer;
     <h3>File 3</h3>
     <div>
         <div class="graphBtn" onClick="_getData('/graph?q=A&&file=3&&i=1',3)">Depth - A</div>
-        <div class="graphBtn" onClick="_getData('/graph?q=W&&file=3&&i=2',3)">Depth - W</div>
-        <div class="graphBtn" onClick="_getData('/graph?q=AK&&file=3&&i=3',3)">Depth - AK</div>
-        <div class="graphBtn" onClick="_getData('/graph?q=AKZ&&file=3&&i=4',3)">Depth - AKZ</div>
-        <div class="graphBtn" onClick="_getData('/graph?q=H&&file=3&&i=5',3)">,3Depth - H</div>
-        <div class="graphBtn" onClick="_getData('/graph?q=B&&file=3&&i=6',3)">Depth - B</div>
-        <div class="graphBtn" onClick="_getData('/graph?q=C&&file=3&&i=7',3)">Depth - C</div>
+       
         <div class="col-md-6">
             <canvas id="13" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getData('/graph?q=W&&file=3&&i=2',3)">Depth - W</div>
+       
         <div class="col-md-6">
             <canvas id="14" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getData('/graph?q=AK&&file=3&&i=3',3)">Depth - AK</div>
+        
         <div class="col-md-6">
             <canvas id="15" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getData('/graph?q=AKZ&&file=3&&i=4',3)">Depth - AKZ</div>
+       
         <div class="col-md-6">
             <canvas id="16" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getData('/graph?q=H&&file=3&&i=5',3)">,Depth - H</div>
+       
         <div class="col-md-6">
             <canvas id="17" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getData('/graph?q=B&&file=3&&i=6',3)">Depth - B</div>
+        
         <div class="col-md-6">
             <canvas id="18" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getData('/graph?q=C&&file=3&&i=7',3)">Depth - C</div>
         <div class="col-md-6">
             <canvas id="19" width="auto" height="auto"></canvas>
         </div>
@@ -267,28 +284,31 @@ cursor: pointer;
     <h3>Single Charts</h3>
     <div>
         <div class="graphBtn" onClick="_getSingleData('/graph?sq=A&&i=1',4)">A Single file2_file3</div>
-        <div class="graphBtn" onClick="_getSingleData('/graph?sq=W&&i=2',4)">W Single file2_file3</div>
-        <div class="graphBtn" onClick="_getSingleData('/graph?sq=AK&&i=3',4)">AK Single file2_file3</div>
-        <div class="graphBtn" onClick="_getSingleData('/graph?sq=AKZ&&i=4',4)">AKZ Single file2_file3</div>
-        <div class="graphBtn" onClick="_getSingleData('/graph?sq=B&&file1=2&&i1=5&&file2=3&&i2=6',4)">B
-            Singlefile2_file3</div>
-        <div class="graphBtn" onClick="_getSingleData('/graph?sq=C&&file1=2&&i1=6&&file2=3&&i2=7',4)">C
-            Singlefile2_file3</div>
+        
         <div class="col-md-6">
             <canvas id="20" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getSingleData('/graph?sq=W&&i=2',4)">W Single file2_file3</div>
+       
         <div class="col-md-6">
             <canvas id="21" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getSingleData('/graph?sq=AK&&i=3',4)">AK Single file2_file3</div>
+       
         <div class="col-md-6">
             <canvas id="22" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getSingleData('/graph?sq=AKZ&&i=4',4)">AKZ Single file2_file3</div>
+        
         <div class="col-md-6">
             <canvas id="23" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getSingleData('/graph?sq=B&&file1=2&&i1=5&&file2=3&&i2=6',4)">B Singlefile2_file3</div>
+       
         <div class="col-md-6">
             <canvas id="24" width="auto" height="auto"></canvas>
         </div>
+        <div class="graphBtn" onClick="_getSingleData('/graph?sq=C&&file1=2&&i1=6&&file2=3&&i2=7',4)">C Singlefile2_file3</div>
         <div class="col-md-6">
             <canvas id="25" width="auto" height="auto"></canvas>
         </div>
