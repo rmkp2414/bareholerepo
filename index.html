@@ -1,62 +1,20 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
 <script>
-    // var myChart = new Chart(ctx, {...});
-
-//     $(document).ready(()=>{
-//        // alert();
-//        $.ajax({url: "http://localhost:8080/graph?q=QC&&file=1", success: function(result){
-//     // $("#div1").html(result);
-// //alert(result.hmm.xAxis)
-//     var ctx = document.getElementById('myChart');
-//     var myChart = new Chart(ctx, {
-//         type: 'bar',
-//         data: {
-//             // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-//             labels: result.hmm.xAxis,
-//             datasets: [{
-//                 label: 'DATASET',
-//                // data: [12, 19, 3, 5, 2, 3],
-//                data: result.hmm.yAxis,
-//                 backgroundColor: [
-//                     'purple','blue'
-//                 ],
-//                 borderColor: [
-//                     'green','yelow'
-//                 ],
-//                 borderWidth: 1
-//             }]
-//         },
-//         options: {
-//             scales: {
-//                 yAxes: [{
-//                     ticks: {
-//                         beginAtZero: true
-//                     }
-//                 }]
-//             }
-//         }
-//     });
-//   }});
-
-
-
-//     })
-
-
-    const _getData = (uuu)=>{
+ 
+    const _getData = (u1)=>{
         // $.ajax({url: "http://localhost:8080/graph?q=QC&&file=1&&i=1", success: function(result){
-            $.ajax({url: uuu, success: function(result){
+            $.ajax({url: u1, success: function(result){
     var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
             // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            labels: result.graphData.xAxis,
+            labels: result.graphData.yAxis,
             datasets: [{
                 label: 'Demo Data Set',
                // data: [12, 19, 3, 5, 2, 3],
-               data: result.graphData.yAxis,
+               data: result.graphData.xAxis,
                 backgroundColor: [
                     'purple','orange','green'
                 ],
@@ -76,6 +34,44 @@
             }
         }
     });
+  }});
+    }
+
+
+    const _getSingleData = (u2)=>{
+        // $.ajax({url: "http://localhost:8080/graph?q=QC&&file=1&&i=1", success: function(result){
+            $.ajax({url: u2, success: function(result){
+    var ctx = document.getElementById('myChart');
+   
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: result.graphData,
+            datasets: [{
+                label: 'Demo Data Set',
+               // data: [12, 19, 3, 5, 2, 3],
+               data: result.graphData,
+                backgroundColor: [
+                    'purple','orange','green'
+                ],
+                borderColor: [
+                   'black','blue','yellow'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    // myChart.destroy();
   }});
     }
 </script>
@@ -111,7 +107,7 @@
     <div class="graphBtn" onClick="_getData('/graph?q=A&&file=2&&i=1')">Depth - A</div>
     <div class="graphBtn" onClick="_getData('/graph?q=W&&file=2&&i=2')">Depth - W</div>
     <div class="graphBtn" onClick="_getData('/graph?q=AK&&file=2&&i=3')">Depth - AK</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=KZ&&file=2&&i=4')">Depth - AKZ</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=AKZ&&file=2&&i=4')">Depth - AKZ</div>
     <div class="graphBtn" onClick="_getData('/graph?q=B&&file=2&&i=5')">Depth - B</div>
     <div class="graphBtn" onClick="_getData('/graph?q=C&&file=2&&i=6')">Depth - C</div>
 </div>
@@ -120,19 +116,26 @@
 
 <h3>File 3</h3>
 <div>
-
     <div class="graphBtn" onClick="_getData('/graph?q=A&&file=3&&i=1')">Depth - A</div>
     <div class="graphBtn" onClick="_getData('/graph?q=W&&file=3&&i=2')">Depth - W</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=K&&file=3&&i=3')">Depth - AK</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=Z&&file=3&&i=4')">Depth - AKZ</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=AK&&file=3&&i=3')">Depth - AK</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=AKZ&&file=3&&i=4')">Depth - AKZ</div>
     <div class="graphBtn" onClick="_getData('/graph?q=H&&file=3&&i=5')">Depth - H</div>
     <div class="graphBtn" onClick="_getData('/graph?q=B&&file=3&&i=6')">Depth - B</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=C&&file=3&&i=7')">Depth - C</div>
-
-  
+    <div class="graphBtn" onClick="_getData('/graph?q=C&&file=3&&i=7')">Depth - C</div>  
 </div>
 
 <hr/>
+
+<h3>Single Charts</h3>
+<div>
+    <div class="graphBtn" onClick="_getSingleData('/graph?sq=A&&i=1')">A Single file2_file3</div>
+    <div class="graphBtn" onClick="_getSingleData('/graph?sq=W&&i=2')">W Single file2_file3</div>
+    <div class="graphBtn" onClick="_getSingleData('/graph?sq=AK&&i=3')">AK Single file2_file3</div>
+    <div class="graphBtn" onClick="_getSingleData('/graph?sq=AKZ&&i=4')">AKZ Single file2_file3</div>    
+    <div class="graphBtn" onClick="_getSingleData('/graph?sq=B&&file1=2&&i=5&&file=3&&i=6')">B Single file2_file3</div>
+    <div class="graphBtn" onClick="_getSingleData('/graph?sq=C&&file1=2&&i=6&&file=3&&i=7')">C Single file2_file3</div>  
+</div>
 
 <div id="div1"></div>
 
