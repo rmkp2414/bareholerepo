@@ -7,7 +7,7 @@
             $.ajax({url: u1, success: function(result){
     var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             labels: result.graphData.yAxis,
