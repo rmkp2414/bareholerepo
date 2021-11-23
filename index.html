@@ -54,24 +54,14 @@
             // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             labels: result.graphData.xAxis,
             datasets: [{
-                label: '# of Votes',
+                label: 'Demo Data Set',
                // data: [12, 19, 3, 5, 2, 3],
                data: result.graphData.yAxis,
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'purple','orange','green'
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+                   'black','blue','yellow'
                 ],
                 borderWidth: 1
             }]
@@ -89,41 +79,57 @@
   }});
     }
 </script>
+<style>
 
-<h1>Graphs</h1>
+    .main{
+        padding:30px
+    }
+
+.graphBtn:hover {
+    cursor: pointer;
+}
+
+</style>
+<div class="main">
+<h1>Barehole Sample Data Viewer</h1>
+<pre>click on items to view graphs</pre>
+<hr>
 <h3>File 1</h3>
 <div>
-    <div onClick="_getData('/graph?q=QC&&file=1&&i=1')">Depth - QC</div>
-    <div onClick="_getData('/graph?q=FS&&file=1&&i=2')">Depth - FS</div>
-    <div onClick="_getData('/graph?q=U&&file=1&&i=3')">Depth - U</div>
-    <div onClick="_getData('/graph?q=TA&&file=1&&i=4')">Depth - TA</div>
-    <div onClick="_getData('/graph?q=O&&file=1&&i=5')">Depth - O</div>
-    <div onClick="_getData('/graph?q=B&&file=1&&i=6')">Depth - B</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=QC&&file=1&&i=1')">Depth - QC</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=FS&&file=1&&i=2')">Depth - FS</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=U&&file=1&&i=3')">Depth - U</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=TA&&file=1&&i=4')">Depth - TA</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=O&&file=1&&i=5')">Depth - O</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=B&&file=1&&i=6')">Depth - B</div>
 </div>
 
 <hr/>
 
 <h3>File 2</h3>
 <div>
-    <a href="/graph?q=A&&file=2&&i=1">Depth - A</a>
-    <a href="/graph?q=W&&file=2&&i=2">Depth - W</a>
-    <a href="/graph?q=AK&&file=2&&i=3">Depth - AK</a>
-    <a href="/graph?q=KZ&&file=2&&i=4">Depth - AKZ</a>
-    <a href="/graph?q=B&&file=2&&i=5">Depth - B</a>
-    <a href="/graph?q=C&&file=2&&i=6">Depth - C</a>
+    <div class="graphBtn" onClick="_getData('/graph?q=A&&file=2&&i=1')">Depth - A</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=W&&file=2&&i=2')">Depth - W</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=AK&&file=2&&i=3')">Depth - AK</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=KZ&&file=2&&i=4')">Depth - AKZ</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=B&&file=2&&i=5')">Depth - B</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=C&&file=2&&i=6')">Depth - C</div>
 </div>
 
 <hr/>
 
 <h3>File 3</h3>
 <div>
-    <a href="/graph?q=A&&file=3&&i=1">Depth - A</a>
-    <a href="/graph?q=W&&file=3&&i=2">Depth - W</a>
-    <a href="/graph?q=K&&file=3&&i=3">Depth - AK</a>
-    <a href="/graph?q=Z&&file=3&&i=4">Depth - AKZ</a>
-    <a href="/graph?q=H&&file=3&&i=5">Depth - H</a>
-    <a href="/graph?q=B&&file=3&&i=6">Depth - B</a>
-    <a href="/graph?q=C&&file=3&&i=7">Depth - C</a>
+
+    <div class="graphBtn" onClick="_getData('/graph?q=A&&file=3&&i=1')">Depth - A</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=W&&file=3&&i=2')">Depth - W</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=K&&file=3&&i=3')">Depth - AK</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=Z&&file=3&&i=4')">Depth - AKZ</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=H&&file=3&&i=5')">Depth - H</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=B&&file=3&&i=6')">Depth - B</div>
+    <div class="graphBtn" onClick="_getData('/graph?q=C&&file=3&&i=7')">Depth - C</div>
+
+  
 </div>
 
 <hr/>
@@ -131,3 +137,4 @@
 <div id="div1"></div>
 
 <canvas id="myChart" width="2000" height="1000"></canvas>
+</div>

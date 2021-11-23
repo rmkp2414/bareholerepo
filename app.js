@@ -1,4 +1,3 @@
-
 const express = require('express')
 const Fs = require('fs');
 const CsvReadableStream = require('csv-reader');
@@ -11,9 +10,7 @@ var app = express();
 
 let inputStream = null;//Fs.createReadStream('./data/_1.csv', 'utf8');
 
-var yAxis = []
-var xAxis = []
-var start,end= false;
+
 
 app.get('/', (req, res) => {    
     res.sendFile(path.join(__dirname, '/index.html'));
@@ -62,9 +59,11 @@ const _private_setRegex = (x) => {
 }
 
 
-const _private_processData = (x_ax, filename, index) => {
+const _private_processData =async (x_ax, filename, index) => {
     var REGEX = _private_setRegex(x_ax);
-
+    var yAxis = []
+    var xAxis = []
+    var start,end= false;
 
 
 
@@ -78,7 +77,7 @@ const _private_processData = (x_ax, filename, index) => {
         inputStream = Fs.createReadStream('./data/_3.csv', 'utf8');
     }
 
-    inputStream
+   var result = new Promise((resolve,reject)=>{inputStream
         .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
         .on('data', function (row) {
 
@@ -106,17 +105,28 @@ const _private_processData = (x_ax, filename, index) => {
         })
         .on('end', function () {
             console.log('No more rows!');
+           // return { xAxis, yAxis };
+           resolve({xAxis, yAxis})
         });
+    })
     //  res.send(xAndy)
     // res.send({ xAxis,yAxis})
-    return { xAxis, yAxis };
+    return result;// { xAxis, yAxis };
 }
 
-app.get('/graph', (req, res) => {
+const _private_process_singleParam= ()=>{
+
+}
+
+const _private_process_CombinedData= ()=>{
+
+}
+
+app.get('/graph',async (req, res) => {
     var x_ax = req.query.q;
     var file = req.query.file;
     var index = req.query.i;
-    var graphData = _private_processData(x_ax, file, index)
+    var graphData =await _private_processData(x_ax, file, index)
     // res.send({hmm})
     console.log(graphData)
     res.send({ graphData })
