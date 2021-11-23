@@ -303,24 +303,24 @@ app.get('/graph',async (req, res) => {
     var sq = req.query.sq
     
 
-    // if(sq !==null)
-    // {
-    //     if(sq!=="B" || sq !=="C")
-    //     {            
-    //         var index = req.query.i;
-    //         var graphData =await _private_process_singleGraph(sq, index)
-    //         // res.send({ graphData })
-    //     }
-    //     else{
-    //         var index1 = req.query.i1;
-    //         var index2 = req.query.i2;
-    //         var graphData =await _private_process_singleGraph(sq, index1,index2)
-    //         // res.send({ graphData })
-    //     }
-    //     res.send({ graphData })
-    //     return;
+    if(sq !==undefined)
+    {
+        if(sq!=="B" || sq !=="C")
+        {            
+            var index = req.query.i;
+            var graphData =await _private_process_singleGraph(sq, index)
+            // res.send({ graphData })
+        }
+        else{
+            var index1 = req.query.i1;
+            var index2 = req.query.i2;
+            var graphData =await _private_process_singleGraph(sq, index1,index2)
+            // res.send({ graphData })
+        }
+        res.send({ graphData })
+        return;
         
-    // }
+    }
     var graphData =await _private_processData(x_ax, file, index)
     // res.send({hmm})
     console.log(graphData)

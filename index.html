@@ -1,12 +1,17 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
 <script>
- 
+    var myChart = null;
     const _getData = (u1)=>{
         // $.ajax({url: "http://localhost:8080/graph?q=QC&&file=1&&i=1", success: function(result){
             $.ajax({url: u1, success: function(result){
     var ctx = document.getElementById('myChart');
-    var myChart = new Chart(ctx, {
+    if(myChart != null)
+    {
+        alert()
+        myChart.destroy();
+    }
+    myChart = new Chart(ctx, {
         type: 'line',
         data: {
             // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -37,13 +42,16 @@
   }});
     }
 
-
+    var myChartsingle = null;
     const _getSingleData = (u2)=>{
         // $.ajax({url: "http://localhost:8080/graph?q=QC&&file=1&&i=1", success: function(result){
             $.ajax({url: u2, success: function(result){
     var ctx = document.getElementById('myChart');
-   
-    var myChart = new Chart(ctx, {
+   if(myChartsingle != null)
+   {
+    myChartsingle.destroy();
+   }
+     myChartsingle= new Chart(ctx, {
         type: 'bar',
         data: {
             // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
