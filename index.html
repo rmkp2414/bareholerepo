@@ -1,0 +1,133 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
+<script>
+    // var myChart = new Chart(ctx, {...});
+
+//     $(document).ready(()=>{
+//        // alert();
+//        $.ajax({url: "http://localhost:8080/graph?q=QC&&file=1", success: function(result){
+//     // $("#div1").html(result);
+// //alert(result.hmm.xAxis)
+//     var ctx = document.getElementById('myChart');
+//     var myChart = new Chart(ctx, {
+//         type: 'bar',
+//         data: {
+//             // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+//             labels: result.hmm.xAxis,
+//             datasets: [{
+//                 label: 'DATASET',
+//                // data: [12, 19, 3, 5, 2, 3],
+//                data: result.hmm.yAxis,
+//                 backgroundColor: [
+//                     'purple','blue'
+//                 ],
+//                 borderColor: [
+//                     'green','yelow'
+//                 ],
+//                 borderWidth: 1
+//             }]
+//         },
+//         options: {
+//             scales: {
+//                 yAxes: [{
+//                     ticks: {
+//                         beginAtZero: true
+//                     }
+//                 }]
+//             }
+//         }
+//     });
+//   }});
+
+
+
+//     })
+
+
+    const _getData = (uuu)=>{
+        // $.ajax({url: "http://localhost:8080/graph?q=QC&&file=1&&i=1", success: function(result){
+            $.ajax({url: uuu, success: function(result){
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: result.graphData.xAxis,
+            datasets: [{
+                label: '# of Votes',
+               // data: [12, 19, 3, 5, 2, 3],
+               data: result.graphData.yAxis,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+  }});
+    }
+</script>
+
+<h1>Graphs</h1>
+<h3>File 1</h3>
+<div>
+    <div onClick="_getData('/graph?q=QC&&file=1&&i=1')">Depth - QC</div>
+    <div onClick="_getData('/graph?q=FS&&file=1&&i=2')">Depth - FS</div>
+    <div onClick="_getData('/graph?q=U&&file=1&&i=3')">Depth - U</div>
+    <div onClick="_getData('/graph?q=TA&&file=1&&i=4')">Depth - TA</div>
+    <div onClick="_getData('/graph?q=O&&file=1&&i=5')">Depth - O</div>
+    <div onClick="_getData('/graph?q=B&&file=1&&i=6')">Depth - B</div>
+</div>
+
+<hr/>
+
+<h3>File 2</h3>
+<div>
+    <a href="/graph?q=A&&file=2&&i=1">Depth - A</a>
+    <a href="/graph?q=W&&file=2&&i=2">Depth - W</a>
+    <a href="/graph?q=AK&&file=2&&i=3">Depth - AK</a>
+    <a href="/graph?q=KZ&&file=2&&i=4">Depth - AKZ</a>
+    <a href="/graph?q=B&&file=2&&i=5">Depth - B</a>
+    <a href="/graph?q=C&&file=2&&i=6">Depth - C</a>
+</div>
+
+<hr/>
+
+<h3>File 3</h3>
+<div>
+    <a href="/graph?q=A&&file=3&&i=1">Depth - A</a>
+    <a href="/graph?q=W&&file=3&&i=2">Depth - W</a>
+    <a href="/graph?q=K&&file=3&&i=3">Depth - AK</a>
+    <a href="/graph?q=Z&&file=3&&i=4">Depth - AKZ</a>
+    <a href="/graph?q=H&&file=3&&i=5">Depth - H</a>
+    <a href="/graph?q=B&&file=3&&i=6">Depth - B</a>
+    <a href="/graph?q=C&&file=3&&i=7">Depth - C</a>
+</div>
+
+<hr/>
+
+<div id="div1"></div>
+
+<canvas id="myChart" width="2000" height="1000"></canvas>
