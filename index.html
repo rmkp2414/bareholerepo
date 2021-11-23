@@ -1,151 +1,296 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
 <script>
     var myChart = null;
-    const _getData = (u1)=>{
-        // $.ajax({url: "http://localhost:8080/graph?q=QC&&file=1&&i=1", success: function(result){
-            $.ajax({url: u1, success: function(result){
-    var ctx = document.getElementById('myChart');
-    if(myChart != null)
+    // var myChart1 = null;
+    // var myChart2 = null;
+    // var myChart3 = null;
+
+var urls = [
+    '/graph?q=QC&&file=1&&i=1',
+    '/graph?q=FS&&file=1&&i=2',
+    '/graph?q=U&&file=1&&i=3',
+    '/graph?q=TA&&file=1&&i=4',
+    '/graph?q=O&&file=1&&i=5',
+    '/graph?q=B&&file=1&&i=6',
+    '/graph?q=A&&file=2&&i=1',
+    '/graph?q=W&&file=2&&i=2',
+    '/graph?q=AK&&file=2&&i=3',
+    '/graph?q=AKZ&&file=2&&i=4',
+    '/graph?q=B&&file=2&&i=5',
+    '/graph?q=C&&file=2&&i=6',
+    '/graph?q=A&&file=3&&i=1',
+    '/graph?q=W&&file=3&&i=2',
+    '/graph?q=AK&&file=3&&i=3',
+    '/graph?q=AKZ&&file=3&&i=4',
+    '/graph?q=H&&file=3&&i=5',
+    '/graph?q=B&&file=3&&i=6',
+    '/graph?q=C&&file=3&&i=7',
+    '/graph?sq=A&&i=1',
+    '/graph?sq=W&&i=2',
+    '/graph?sq=AK&&i=3',
+    '/graph?sq=AKZ&&i=4',
+    '/graph?sq=B&&file1=2&&i1=5&&file2=3&&i2=6',
+    '/graph?sq=C&&file1=2&&i1=6&&file2=3&&i2=7']
+
+var views = ['QC','FS','U','TA',
+'O','B',
+
+
+
+
+
+
+]
+
+// var singleurls = [
+// '/graph?sq=A&&i=1',
+// '/graph?sq=W&&i=2',
+// '/graph?sq=AK&&i=3',
+// '/graph?sq=AKZ&&i=4',
+// '/graph?sq=B&&file1=2&&i1=5&&file2=3&&i2=6',
+// '/graph?sq=C&&file1=2&&i1=6&&file2=3&&i2=7',
+// ]
+
+var label = ''
+
+$(document).ready(()=>{
+    for(var i= 1;i<21 ; i++)
     {
-        
-        myChart.destroy();
+    _getData(urls[i],i)
+   // label = `Depth vs ${views[i-1]}`
     }
-    myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            labels: result.graphData.yAxis,
-            datasets: [{
-                label: 'Demo Data Set',
-               // data: [12, 19, 3, 5, 2, 3],
-               data: result.graphData.xAxis,
-                backgroundColor: [
-                    'purple','orange','green'
-                ],
-                borderColor: [
-                   'black','blue','yellow'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
+
+    for(var j= 20;j<26 ; j++)
+    {
+    _getSingleData(urls[j],j)
+  //  label = `Depth vs ${views[i-1]}`
+    }
+})
+
+    const _getData = async (u1, view) => {
+        await $.ajax({
+            url: u1, success: function (result) {
+                console.log(result)
+                var ctx = document.getElementById(view);
+                // if(myChart!=null){
+                //     myChart.destroy();
+                // }
+                myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        labels: result.graphData.xAxis,
+                        datasets: [{
+                            label: 'dataset',
+                            // data: [12, 19, 3, 5, 2, 3],
+                            data: result.graphData.yAxis,
+                            backgroundColor: [
+                                'purple', 'orange', 'green'
+                            ],
+                            borderColor: [
+                                'black', 'blue', 'yellow'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
                     }
-                }]
+                });
             }
-        }
-    });
-  }});
+        });
     }
 
     var myChartsingle = null;
-    const _getSingleData = (u2)=>{
-        // $.ajax({url: "http://localhost:8080/graph?q=QC&&file=1&&i=1", success: function(result){
-            $.ajax({url: u2, success: function(result){
-    var ctx = document.getElementById('myChart');
-   if(myChartsingle != null)
-   {
-    myChartsingle.destroy();
-   }
-     myChartsingle= new Chart(ctx, {
-        type: 'bar',
-        data: {
-            // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            labels: result.graphData,
-            datasets: [{
-                label: 'Demo Data Set',
-               // data: [12, 19, 3, 5, 2, 3],
-               data: result.graphData,
-                backgroundColor: [
-                    'purple','orange','green'
-                ],
-                borderColor: [
-                   'black','blue','yellow'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
+
+    const _getSingleData = (u2, view) => {
+        $.ajax({
+            url: u2, success: function (result) {
+                var ctx = document.getElementById(view);
+                //    if(myChartsingle != null)
+                //    {
+                //     myChartsingle.destroy();
+                //    }
+                myChartsingle = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        labels: result.graphData,
+                        datasets: [{
+                            label: 'Demo Data Set',
+                            // data: [12, 19, 3, 5, 2, 3],
+                            data: result.graphData,
+                            backgroundColor: [
+                                'purple', 'orange', 'green'
+                            ],
+                            borderColor: [
+                                'black', 'blue', 'yellow'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        aspectRatio: 1,
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
                     }
-                }]
+                });                
             }
-        }
-    });
-    // myChart.destroy();
-  }});
+        });
     }
 </script>
 <style>
 
-    .main{
-        padding:30px
-    }
+.main{
+padding:30px
+}
 
 .graphBtn:hover {
-    cursor: pointer;
+cursor: pointer;
 }
 
 </style>
-<div class="main">
-<h1>Barehole Sample Data Viewer</h1>
-<pre>click on items to view graphs</pre>
-<hr>
-<h3>File 1</h3>
-<div>
-    <div class="graphBtn" onClick="_getData('/graph?q=QC&&file=1&&i=1')">Depth - QC</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=FS&&file=1&&i=2')">Depth - FS</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=U&&file=1&&i=3')">Depth - U</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=TA&&file=1&&i=4')">Depth - TA</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=O&&file=1&&i=5')">Depth - O</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=B&&file=1&&i=6')">Depth - B</div>
-</div>
 
-<hr/>
+<div class="main container">
+    <h1>Barehole Sample Data Viewer</h1>
+    <pre>Graphs Will be loaded...</pre>
+    <hr>
+    <h3>File 1</h3>
+    <div>
+        <div class="graphBtn" onClick="_getData('/graph?q=QC&&file=1&&i=1',1)">Depth - QC</div>
+        <div class="graphBtn" onClick="_getData('/graph?q=FS&&file=1&&i=2',1)">Depth - FS</div>
+        <div class="graphBtn" onClick="_getData('/graph?q=U&&file=1&&i=3',1)">Depth - U</div>
+        <div class="graphBtn" onClick="_getData('/graph?q=TA&&file=1&&i=4',1)">Depth - TA</div>
+        <div class="graphBtn" onClick="_getData('/graph?q=O&&file=1&&i=5',1)">Depth - O</div>
+        <div class="graphBtn" onClick="_getData('/graph?q=B&&file=1&&i=6',1)">Depth - B</div>
+        <div class="col-md-6">
+            <canvas id="1" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="2" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="3" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="4" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="5" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="6" width="auto" height="auto"></canvas>
+        </div>
+    </div>
 
-<h3>File 2</h3>
-<div>
-    <div class="graphBtn" onClick="_getData('/graph?q=A&&file=2&&i=1')">Depth - A</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=W&&file=2&&i=2')">Depth - W</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=AK&&file=2&&i=3')">Depth - AK</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=AKZ&&file=2&&i=4')">Depth - AKZ</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=B&&file=2&&i=5')">Depth - B</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=C&&file=2&&i=6')">Depth - C</div>
-</div>
+    <hr />
 
-<hr/>
+    <h3>File 2</h3>
+    <div>
+        <div class="graphBtn" onClick="_getData('/graph?q=A&&file=2&&i=1',2)">Depth - A</div>
+        <div class="graphBtn" onClick="_getData('/graph?q=W&&file=2&&i=2',2)">Depth - W</div>
+        <div class="graphBtn" onClick="_getData('/graph?q=AK&&file=2&&i=3',2)">Depth - AK</div>
+        <div class="graphBtn" onClick="_getData('/graph?q=AKZ&&file=2&&i=4',2)">Depth - AKZ</div>
+        <div class="graphBtn" onClick="_getData('/graph?q=B&&file=2&&i=5',2)">Depth - B</div>
+        <div class="graphBtn" onClick="_getData('/graph?q=C&&file=2&&i=6',2)">Depth - C</div>
+        <div class="col-md-6">
+            <canvas id="7" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="8" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="9" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="10" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="11" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="12" width="auto" height="auto"></canvas>
+        </div>
+    </div>
 
-<h3>File 3</h3>
-<div>
-    <div class="graphBtn" onClick="_getData('/graph?q=A&&file=3&&i=1')">Depth - A</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=W&&file=3&&i=2')">Depth - W</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=AK&&file=3&&i=3')">Depth - AK</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=AKZ&&file=3&&i=4')">Depth - AKZ</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=H&&file=3&&i=5')">Depth - H</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=B&&file=3&&i=6')">Depth - B</div>
-    <div class="graphBtn" onClick="_getData('/graph?q=C&&file=3&&i=7')">Depth - C</div>  
-</div>
+    <hr />
 
-<hr/>
+    <h3>File 3</h3>
+    <div>
+        <div class="graphBtn" onClick="_getData('/graph?q=A&&file=3&&i=1',3)">Depth - A</div>
+        <div class="graphBtn" onClick="_getData('/graph?q=W&&file=3&&i=2',3)">Depth - W</div>
+        <div class="graphBtn" onClick="_getData('/graph?q=AK&&file=3&&i=3',3)">Depth - AK</div>
+        <div class="graphBtn" onClick="_getData('/graph?q=AKZ&&file=3&&i=4',3)">Depth - AKZ</div>
+        <div class="graphBtn" onClick="_getData('/graph?q=H&&file=3&&i=5',3)">,3Depth - H</div>
+        <div class="graphBtn" onClick="_getData('/graph?q=B&&file=3&&i=6',3)">Depth - B</div>
+        <div class="graphBtn" onClick="_getData('/graph?q=C&&file=3&&i=7',3)">Depth - C</div>
+        <div class="col-md-6">
+            <canvas id="13" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="14" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="15" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="16" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="17" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="18" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="19" width="auto" height="auto"></canvas>
+        </div>
+    </div>
 
-<h3>Single Charts</h3>
-<div>
-    <div class="graphBtn" onClick="_getSingleData('/graph?sq=A&&i=1')">A Single file2_file3</div>
-    <div class="graphBtn" onClick="_getSingleData('/graph?sq=W&&i=2')">W Single file2_file3</div>
-    <div class="graphBtn" onClick="_getSingleData('/graph?sq=AK&&i=3')">AK Single file2_file3</div>
-    <div class="graphBtn" onClick="_getSingleData('/graph?sq=AKZ&&i=4')">AKZ Single file2_file3</div>    
-    <div class="graphBtn" onClick="_getSingleData('/graph?sq=B&&file1=2&&i=5&&file=3&&i=6')">B Single file2_file3</div>
-    <div class="graphBtn" onClick="_getSingleData('/graph?sq=C&&file1=2&&i=6&&file=3&&i=7')">C Single file2_file3</div>  
-</div>
+    <hr />
 
-<div id="div1"></div>
-
-<canvas id="myChart" width="2000" height="1000"></canvas>
+    <h3>Single Charts</h3>
+    <div>
+        <div class="graphBtn" onClick="_getSingleData('/graph?sq=A&&i=1',4)">A Single file2_file3</div>
+        <div class="graphBtn" onClick="_getSingleData('/graph?sq=W&&i=2',4)">W Single file2_file3</div>
+        <div class="graphBtn" onClick="_getSingleData('/graph?sq=AK&&i=3',4)">AK Single file2_file3</div>
+        <div class="graphBtn" onClick="_getSingleData('/graph?sq=AKZ&&i=4',4)">AKZ Single file2_file3</div>
+        <div class="graphBtn" onClick="_getSingleData('/graph?sq=B&&file1=2&&i1=5&&file2=3&&i2=6',4)">B
+            Singlefile2_file3</div>
+        <div class="graphBtn" onClick="_getSingleData('/graph?sq=C&&file1=2&&i1=6&&file2=3&&i2=7',4)">C
+            Singlefile2_file3</div>
+        <div class="col-md-6">
+            <canvas id="20" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="21" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="22" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="23" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="24" width="auto" height="auto"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="25" width="auto" height="auto"></canvas>
+        </div>
+    </div>
 </div>

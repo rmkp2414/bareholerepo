@@ -53,6 +53,9 @@ const _private_setRegex = (x) => {
         case "H":
             REGEX = /H=(.*)/
             break;
+        case "C":
+            REGEX = /C=(.*)/
+            break;
         default:
         // code block
     }
@@ -197,7 +200,7 @@ const _private_process_singleGraph =async (x_ax, index) => {
         })
 
         var tmpres = Promise.all([promise1,promise2]).then((values)=>{
-            console.log(values)
+          //  console.log(values)
             return values[0].file2dataSet.concat(values[1].file3dataSet)
         })
     //  res.send(xAndy)
@@ -208,9 +211,10 @@ const _private_process_singleGraph =async (x_ax, index) => {
 
 
 
-const _private_process_singleGraphBorC =async (x_ax, file1, index1,file2,index2) => {
+const _private_process_singleGraphBorC =async (x_ax, index1,index2) => {
     var REGEX = _private_setRegex(x_ax);
-    var dataSet = []
+    var file2dataSet = []
+    var file3dataSet = []
     //var file3Data = []
     var file2start,file2end= false;
     var file3start,file3end= false;
@@ -219,15 +223,11 @@ const _private_process_singleGraphBorC =async (x_ax, file1, index1,file2,index2)
 
 
 
-    // if (filename == 1) {
-    //     inputStream = Fs.createReadStream('./data/_1.csv', 'utf8');
-    // }
-    if (filename == 2) {
-        filestream2 = Fs.createReadStream('./data/_2.csv', 'utf8');
-    }
-    if (filename == 3) {
-        filestream3 = Fs.createReadStream('./data/_3.csv', 'utf8');
-    }
+
+    filestream2 = Fs.createReadStream('./data/_2.csv', 'utf8');
+
+    filestream3 = Fs.createReadStream('./data/_3.csv', 'utf8');
+
 
    var promise1 = new Promise((resolve,reject)=>{
     filestream2
@@ -243,7 +243,7 @@ const _private_process_singleGraphBorC =async (x_ax, file1, index1,file2,index2)
                         /* consider these rows for y axis */
                        // var depth = row[0].match(/D=(.*)/)[1]
                         var f2Data_value = row[Number(index1)].match(REGEX)[1]
-                        dataSet.push(f2Data_value);                       
+                        file2dataSet.push(f2Data_value);                       
                     }
                 }
             }
@@ -256,7 +256,7 @@ const _private_process_singleGraphBorC =async (x_ax, file1, index1,file2,index2)
         .on('end', function () {
             console.log('No more rows!');
            // return { xAxis, yAxis };
-           resolve({dataSet})
+           resolve({file2dataSet})
         });
     })
 
@@ -274,7 +274,7 @@ const _private_process_singleGraphBorC =async (x_ax, file1, index1,file2,index2)
                             /* consider these rows for y axis */
                            // var depth = row[0].match(/D=(.*)/)[1]
                             var f3Data_value = row[Number(index2)].match(REGEX)[1]
-                            dataSet.push(f3Data_value);                       
+                            file3dataSet.push(f3Data_value);                       
                         }
                     }
                 }
@@ -287,12 +287,17 @@ const _private_process_singleGraphBorC =async (x_ax, file1, index1,file2,index2)
             .on('end', function () {
                 console.log('No more rows!');
                // return { xAxis, yAxis };
-               resolve({dataSet})
+               resolve({file3dataSet})
             });
+        })
+
+        var tmp2res = Promise.all([promise1,promise2]).then((values)=>{
+          //  console.log(values)
+            return values[0].file2dataSet.concat(values[1].file3dataSet)
         })
     //  res.send(xAndy)
     // res.send({ xAxis,yAxis})
-    return promise2;// { xAxis, yAxis };
+    return tmp2res;// { xAxis, yAxis };
 }
 
 app.get('/graph',async (req, res) => {
@@ -305,16 +310,19 @@ app.get('/graph',async (req, res) => {
 
     if(sq !==undefined)
     {
-        if(sq!=="B" || sq !=="C")
-        {            
-            var index = req.query.i;
-            var graphData =await _private_process_singleGraph(sq, index)
-            // res.send({ graphData })
-        }
-        else{
+        if(sq=='B' || sq =='C')
+        {           
             var index1 = req.query.i1;
             var index2 = req.query.i2;
-            var graphData =await _private_process_singleGraph(sq, index1,index2)
+            var graphData =await _private_process_singleGraphBorC(sq, index1,index2)
+            // res.send({ graphData })  
+          
+        }
+        else{
+           
+
+            var index = req.query.i;
+            var graphData =await _private_process_singleGraph(sq, index)
             // res.send({ graphData })
         }
         res.send({ graphData })
@@ -327,16 +335,16 @@ app.get('/graph',async (req, res) => {
     res.send({ graphData })
 })
 
-app.get('/singlegraph',async (req, res) => {
-    var x_ax = req.query.q;
-    var file = req.query.file;
-    var index = req.query.i;
-    var graphData =await _private_processData(x_ax, file, index)
-    // res.send({hmm})
-    console.log(graphData)
-    res.send({ graphData })
-})
+// app.get('/singlegraph',async (req, res) => {
+//     var x_ax = req.query.q;
+//     var file = req.query.file;
+//     var index = req.query.i;
+//     var graphData =await _private_processData(x_ax, file, index)
+//     // res.send({hmm})
+//     console.log(graphData)
+//     res.send({ graphData })
+// })
 
-app.listen(process.env.PORT || 8080, function () {
+app.listen(process.env.PORT || 3001, function () {
     console.log("Express Server Listening On Port %d in %s mode", this.address().port, app.settings.env);
 });
