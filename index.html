@@ -51,6 +51,11 @@
         await $.ajax({
             url: u1, success: function (result) {
 
+var X = result.graphData.xAxis.toString().replace(/, +/g, ",").split(",").map(Number)
+var Y = result.graphData.yAxis.toString().replace(/, +/g, ",").split(",").map(Number)
+
+var maxY  = Y.sort((a, b) => b - a)[0];
+var minY  = Y.sort((a, b) => a - b)[0];
                 var ctx = document.getElementById(view);
                 // if(myChart!=null){
                 //     myChart.destroy();
@@ -59,11 +64,11 @@
                     type: 'line',
                     data: {
 
-                        labels: result.graphData.xAxis,
+                        labels: X,
                         datasets: [{
                             label: 'dataset',
                             // data: [12, 19, 3, 5, 2, 3],
-                            data: result.graphData.yAxis,
+                            data: Y,
                             backgroundColor: [
                                 'purple', 'orange', 'green'
                             ],
@@ -78,11 +83,14 @@
                             yAxes: [{
                                 ticks: {
                                     beginAtZero: true
+                                    //  min: `-${minY}`, max: `-${maxY}`
                                 }
                             }]
                         }
                     }
                 });
+                $(`#${view}`).parent().append(`<pre class="dataset col-md-12">X : ${X} <br>Y : ${Y} </pre>`)
+                // $(`#${view}`).parent().append(`<pre class="dataset col-md-12">Y : ${Y}</pre>`)
             }
         });
     }
@@ -125,6 +133,9 @@
                         }
                     }
                 });
+
+                $(`#${view}`).parent().append(`<pre class="dataset col-md-12">Data : ${result.graphData}</pre>`)
+                
             }
         });
     }
@@ -138,6 +149,9 @@
         cursor: pointer;
 
     }
+    .dataset{
+        text-overflow: clip;
+    }
 </style>
 
 <div class="main container">
@@ -150,6 +164,8 @@
 
         <div class="col-md-6">
             <canvas id="0" width="auto" height="auto"></canvas>
+
+            
         </div>
         <div class="graphBtn" onClick="_getData('/graph?q=FS&&file=1&&i=2',1)">Depth - FS</div>
 

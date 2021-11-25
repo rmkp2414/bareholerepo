@@ -256,21 +256,47 @@ const _private_process_singleGraphBorC = async (x_ax, index1, index2) => {
     return _tmpResult2;// { xAxis, yAxis };
 }
 
+// app.get('/graph', async (req, res) => {
+//     var x_ax = req.query.q;
+//     var file = req.query.file;
+//     var index = req.query.i;
+//     var sq = req.query.sq
+    
+
+//     if (sq !== undefined) {
+//         if (sq == 'B' || sq == 'C') {
+//             var index1 = req.query.i1;
+//             var index2 = req.query.i2;
+//             var graphData = await _private_process_singleGraphBorC(sq, index1, index2)
+//         }
+//         else {
+//             var index = req.query.i;
+//             var graphData = await _private_process_singleGraph(sq, index)
+//         }
+//         res.send({ graphData })
+//         return;
+
+//     }
+//     var graphData = await _private_processData(x_ax, file, index)
+//     res.send({ graphData })
+// })
+
 app.get('/graph', async (req, res) => {
     var x_ax = req.query.q;
     var file = req.query.file;
     var index = req.query.i;
     var sq = req.query.sq
+    var graphData = undefined;
 
     if (sq !== undefined) {
         if (sq == 'B' || sq == 'C') {
             var index1 = req.query.i1;
             var index2 = req.query.i2;
-            var graphData = await _private_process_singleGraphBorC(sq, index1, index2)
+            graphData = await _private_process_singleGraphBorC(sq, index1, index2)
         }
         else {
             var index = req.query.i;
-            var graphData = await _private_process_singleGraph(sq, index)
+            graphData = await _private_process_singleGraph(sq, index)
         }
         res.send({ graphData })
         return;
