@@ -104,7 +104,7 @@ const _private_processData = async (x_ax, filename, index) => {
             resolve({ xAxis, yAxis })
         });
     })
-    return result;// { xAxis, yAxis };
+    return result;
 }
 
 /* method to process single params */
@@ -443,7 +443,7 @@ const _private_fileWiseParams = async (passed) => {
                 if (start && !end) {
                     if (row[0] != '#') {
                         if (row[0] != '#$') {
-                            //file1data += row+',';
+                           
                             /* consider these rows for y axis */
                             var arrayData = new Promise((resolvex, rejectx) => {
 

@@ -35,9 +35,7 @@
         '/graph?sq=C&&file1=2&&i1=6&&file2=3&&i2=7'
     ]
 
-    // var views = ['QC', 'FS', 'U', 'TA',
-    //     'O', 'B',
-    // ]
+    
     $(document).ready(() => {
         for (var i = 0; i < 19; i++) {
             _getData(urls[i], i)
@@ -70,10 +68,7 @@
 
         }
 
-        // var type = undefined;
-        // var file = _params.match(/\?file=(.*?)&&/)[1]
-        // var param = _params.split('params=')[1]
-        // var data1 = []
+     
 
 
         await $.ajax({
@@ -106,20 +101,19 @@
                             ],
                             borderWidth: 1,
                             pointStyle: 'line'
-                            //                         cubicInterpolationMode: 'monotone',
-                            //   tension: 0.4
+                          
                         }]
                     },
 
                     options: {
-                        //bezierCurve : true,
+                        
                         scales: {
                             x: {
                                 type: 'logarithmic',
                                 offset: true,
                                 alignToPixels: true,
 
-                                //autoSkip:false,
+                              
 
                                 title: {
                                     color: 'red',
@@ -128,7 +122,7 @@
                                 },
                                 ticks: {
 
-                                    //    beginAtZero: true,
+                                    
                                     stepSize: 0.1
                                 }
 
